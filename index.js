@@ -1,18 +1,22 @@
-const cfCheck = require("./cloudFlareTurnstile")
-const sendMail = require("./emailSender")
+const cfCheck = require("./src/cloudFlareTurnstile")
+const sendMail = require("./src/emailSender")
 const {
   ValidationError,
   DatabaseConflictError,
   PermissionError,
   ThirdPartyApiError,
-} = require("./error")
+} = require("./src/error")
 const {
   fetchLocalApiData,
   sendLocalApiData,
   deleteLocalApiData,
   modifiedLocalApiData,
-} = require("./localApiService")
-const { setRedisKey, deleteRedisKey, getRedisKey } = require("./redisSetter")
+} = require("./src/localApiService")
+const {
+  setRedisKey,
+  deleteRedisKey,
+  getRedisKey,
+} = require("./src/redisSetter")
 const {
   offsetTime,
   getLaterDate,
@@ -28,8 +32,8 @@ const {
   writeToJSON,
   bypassQueryCheckIfAdmin,
   generatePassword,
-} = require("./utilHelper")
-const { validateInput } = require("./validator")
+} = require("./src/utilHelper")
+const { validateInput } = require("./src/validator")
 
 module.exports = {
   validateInput,
