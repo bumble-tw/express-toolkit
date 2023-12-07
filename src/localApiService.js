@@ -1,5 +1,5 @@
 const axios = require("axios")
-const { ThirdPartyApiError } = require("@utils/error")
+const { ThirdPartyApiError } = require("./error")
 
 async function fetchLocalApiData(url, cookie, userId) {
   try {
