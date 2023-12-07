@@ -33,7 +33,7 @@ const {
   bypassQueryCheckIfAdmin,
   generatePassword,
 } = require("./src/utilHelper")
-const { validateInput } = require("./src/validator")
+const { validateInput } = require("./src/validators")
 
 module.exports = {
   validateInput,
