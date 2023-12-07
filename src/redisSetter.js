@@ -1,15 +1,18 @@
 const Redis = require("ioredis")
 const JSONbig = require("json-bigint")
 
-const redisOptions = {
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-  password: process.env.REDIS_PASSWORD,
-  maxRetriesPerRequest: 1,
-  retryStrategy(times) {
-    const delay = Math.min(times * 500, 2000)
-    return delay
-  },
+function createRedisClient(options) {
+  const redisOptions = {
+    host: options.redisHost || "localhost",
+    port: options.redisPort || 6379,
+    password: options.redisPassword || "",
+    maxRetriesPerRequest: 1,
+    retryStrategy(times) {
+      const delay = Math.min(times * 500, 2000)
+      return delay
+    },
+  }
+  return new Redis(redisOptions)
 }
 
 function redisListener(clients) {
@@ -29,9 +32,9 @@ function redisListener(clients) {
 }
 
 module.exports = {
-  setRedisKey: async (cacheKey, cacheData, expired) => {
+  setRedisKey: async (cacheKey, cacheData, expired, options = {}) => {
     try {
-      const redisClients = [new Redis(redisOptions)]
+      const redisClients = [createRedisClient(options)]
       redisListener(redisClients)
 
       const stringifiedData = JSON.stringify(cacheData)
@@ -49,7 +52,7 @@ module.exports = {
 
   deleteRedisKey: async (cacheKey) => {
     try {
-      const redisClients = [new Redis(redisOptions)]
+      const redisClients = [createRedisClient(options)]
       redisListener(redisClients)
 
       await Promise.all(redisClients.map((client) => client.del(cacheKey)))
@@ -62,7 +65,7 @@ module.exports = {
 
   getRedisKey: async (cacheKey) => {
     try {
-      const redisClients = [new Redis(redisOptions)]
+      const redisClients = [createRedisClient(options)]
       redisListener(redisClients)
 
       const promises = redisClients.map((client) => client.get(cacheKey))

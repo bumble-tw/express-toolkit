@@ -1,18 +1,24 @@
-require("dotenv").config()
 const FormData = require("form-data")
 const fetch = require("node-fetch")
 const { SocksProxyAgent } = require("socks-proxy-agent")
 
-async function cfCheck(token, ip) {
+async function cfCheck(token, ip, options = {}) {
+  if (!options.CFKEY) {
+    throw new Error("Cloudflare Turnstile secret key is missing")
+  }
+
+  const config = {
+    TRANSPORTS_PROXY: options.TRANSPORTS_PROXY || null,
+    CFKEY: options.CFKEY,
+  }
+
   try {
-    const agent = process.env.TRANSPORTS_PROXY
-      ? new SocksProxyAgent(process.env.TRANSPORTS_PROXY)
+    const agent = config.TRANSPORTS_PROXY
+      ? new SocksProxyAgent(config.TRANSPORTS_PROXY)
       : null
 
-    const SECRET_KEY = process.env.CFKEY
-
     const formData = new FormData()
-    formData.append("secret", SECRET_KEY)
+    formData.append("secret", config.CFKEY)
     formData.append("response", token)
     formData.append("remoteip", ip)
 
@@ -26,6 +32,7 @@ async function cfCheck(token, ip) {
     const outcome = await result.json()
     return outcome.success
   } catch (err) {
+    console.error("Error in cfCheck:", err)
     throw err
   }
 }

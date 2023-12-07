@@ -1,22 +1,28 @@
 const nodemailer = require("nodemailer")
-require("dotenv").config()
 
-async function sendMail(mailOptions) {
+async function sendMail(mailOptions, options = {}) {
+  // 檢查基本的郵件配置是否存在
+  if (!options.MAIL_AC || !options.MAIL_PW) {
+    throw new Error("請提供帳號密碼(MAIL_AC, MAIL_PW)")
+  }
+
   const transporterOption = {
-    service: "gmail",
-    port: 465,
+    host: options.MAIL_HOST || "gmail",
+    port: options.MAIL_PORT || 465,
     secure: true,
     auth: {
-      user: process.env.MAIL_AC,
-      pass: process.env.MAIL_PW,
+      user: options.MAIL_AC,
+      pass: options.MAIL_PW,
     },
-    proxy: process.env.TRANSPORTS_PROXY,
+    proxy: options.TRANSPORTS_PROXY || null,
   }
 
   const transporter = nodemailer.createTransport(transporterOption)
-  if (process.env.TRANSPORTS_PROXY) {
+
+  if (transporterOption.proxy) {
     transporter.set("proxy_socks_module", require("socks"))
   }
+
   try {
     await transporter.sendMail(mailOptions)
   } catch (error) {

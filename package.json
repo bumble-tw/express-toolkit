@@ -1,16 +1,19 @@
 {
-  "name": "syscom-6r-toolkit",
-  "version": "1.0.0",
+  "name": "syscom-6r-toolkit2",
+  "version": "1.0.1",
   "description": "凌群電腦後端程式工具包",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bumble, Chuang Nick",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.turl.kaehsu.io/Bumble/syscom-6r-toolkit.git"
+  },
   "license": "ISC",
   "dependencies": {
     "axios": "^1.5.1",
-    "dotenv": "^16.3.1",
     "form-data": "^4.0.0",
     "ioredis": "^5.3.2",
     "joi": "^17.11.0",
