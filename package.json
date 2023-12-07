@@ -1,6 +1,6 @@
 {
   "name": "syscom-6r-toolkit2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "凌群電腦後端程式工具包",
   "main": "index.js",
   "scripts": {
