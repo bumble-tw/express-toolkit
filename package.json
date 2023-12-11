@@ -1,6 +1,6 @@
 {
-  "name": "syscom-6r-toolkit2",
-  "version": "1.0.4",
+  "name": "@syscom-6r/syscom-6r-toolkit",
+  "version": "1.0.0",
   "description": "凌群電腦後端程式工具包",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,9 @@
   "repository": {
     "type": "git",
     "url": "https://gitlab.turl.kaehsu.io/Bumble/syscom-6r-toolkit.git"
+  },
+  "publishConfig": {
+    "access": "restricted"
   },
   "license": "ISC",
   "dependencies": {
