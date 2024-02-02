@@ -62,15 +62,24 @@ const baseErrorMessages = {
   "number.base": "{#label} 必須為數字",
   "string.guid": "{#label} 必須為UUID格式",
   "array.base": "{#label} 必須是一個陣列",
+  "date.base":
+    "{#label} 日期格式必須如是'YYYY-MM-DD'或'YYYY-MM-DDTHH:mm:ss.sssZ'",
 }
 
 const rules = {
+  isDate: Joi.date()
+    .label("日期")
+    .iso()
+    .messages({
+      ...baseErrorMessages,
+    }),
   email: Joi.string()
     .label("信箱")
     .email()
     .min(8)
     .max(255)
     .trim()
+    .lowercase()
     .messages({
       ...baseErrorMessages,
       "string.min": "{#label}長度需再8~255字元之間",
@@ -143,7 +152,7 @@ const rules = {
       "any.only": "{#label} 輸入錯誤",
     }),
   isUUID: Joi.string()
-    .guid({ version: ["uuidv4"] })
+    .guid(/*{ version: ["uuidv4"]}*/)
     .messages(baseErrorMessages),
   isArray: Joi.array().when(Joi.ref("$isRequired"), {
     is: true,
