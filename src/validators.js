@@ -444,6 +444,8 @@ const baseErrorMessages = {
   "array.base": "{#label} 必須是一個陣列",
   "date.base":
     "{#label} 日期格式必須如是'YYYY-MM-DD'或'YYYY-MM-DDTHH:mm:ss.sssZ'",
+  "date.min": "{#label} 必須大於或等於 {#limit}",
+  "date.max": "{#label} 必須小於或等於 {#limit}",
 }
 
 const rules = {
@@ -461,6 +463,8 @@ const rules = {
     .iso()
     .messages({
       ...baseErrorMessages,
+      "date.min": `{#label} 必須大於或等於 {#limit}`,
+      "date.max": `{#label} 必須小於或等於 {#limit}`,
     }),
   email: Joi.string()
     .label("信箱")
@@ -571,6 +575,8 @@ const validateInput = (inputArray) => {
         isRequired = true, //是否必填
         minLength, //最小長度
         maxLength, //最大長度
+        minDate, // 最小日期
+        maxDate, // 最大日期
         enumValues, //enum限定有效值
         toLowerCase = false, //是否轉換為小寫
         toUpperCase = false,
@@ -619,6 +625,18 @@ const validateInput = (inputArray) => {
           )
         }
         rule = rule.items(itemRule) // 使用 itemRule 來驗證陣列內的項目
+      }
+
+      // 針對 'isDate' 驗證方式條件性應用日期範圍規則
+      if (validateWay === "isDate") {
+        if (minDate) {
+          // 如果設定了最小日期
+          rule = rule.min(minDate)
+        }
+        if (maxDate) {
+          // 如果設定了最大日期
+          rule = rule.max(maxDate)
+        }
       }
 
       // 檢查規則是否有預設的標籤
