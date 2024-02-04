@@ -128,9 +128,22 @@ module.exports = {
       throw err
     }
   },
-  bypassQueryCheckIfAdmin: (roles, originalWhereObject) => {
+  bypassQueryCheckIfAdmin: (
+    roles,
+    originalWhereObject,
+    removeProperties = ["user_id", "creator_id"]
+  ) => {
     const isAdmin = roles.some((role) => role.roleName === "admin")
-    const { user_id, creator_id, ...newWhereObject } = originalWhereObject
+    // 創建一個新的對象來避免修改原始對象
+    const newWhereObject = { ...originalWhereObject }
+
+    if (isAdmin) {
+      // 循環需要移除的屬性並從新對象中移除它們
+      removeProperties.forEach((property) => {
+        delete newWhereObject[property]
+      })
+    }
+
     return isAdmin ? newWhereObject : originalWhereObject
   },
   generatePassword: () => {
