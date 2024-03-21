@@ -25,3 +25,9 @@
 ### modified
 
 - byPassQuery改成可以自定義欲移除的屬性。
+
+## [1.3.0] - 2024-03-22
+
+### Added
+
+- localApi增加自訂義agent參數輸入選項。
