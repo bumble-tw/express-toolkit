@@ -24,10 +24,16 @@
 
 ### modified
 
-- byPassQuery改成可以自定義欲移除的屬性。
+- byPassQuery 改成可以自定義欲移除的屬性。
 
 ## [1.3.0] - 2024-03-22
 
 ### Added
 
-- localApi增加自訂義agent參數輸入選項。
+- localApi 增加自訂義 agent 參數輸入選項。
+
+## [1.4.0] - 2024-03-29
+
+### Added
+
+- LocalApiService 增加 returnFullResponse 參數。

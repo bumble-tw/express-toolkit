@@ -14,6 +14,8 @@ const { ThirdPartyApiError } = require("./error")
 
 const defaultOptions = {
   useHttpAgent: false,
+  httpAgent: null,
+  returnFullResponse: false,
 }
 
 function configureAxios(url, cookie, userId, options) {
@@ -41,23 +43,19 @@ function configureAxios(url, cookie, userId, options) {
   return config
 }
 
-async function fetchLocalApiData(
-  url,
-  cookie,
-  userId,
-  options = defaultOptions
-) {
+async function fetchLocalApiData(url, cookie, userId, options = {}) {
   try {
+    const finalOptions = { ...defaultOptions, ...options }
     const response = await axios.get(
       url,
-      configureAxios(url, cookie, userId, options)
+      configureAxios(url, cookie, userId, finalOptions)
     )
 
     if (response.status !== 200) {
       throw new ThirdPartyApiError("Local API 抓取失敗")
     }
 
-    return response.data
+    return finalOptions.returnFullResponse ? response : response.data
   } catch (err) {
     if (axios.isAxiosError(err)) {
       const serverResponse = err
@@ -70,24 +68,20 @@ async function fetchLocalApiData(
   }
 }
 
-async function sendLocalApiData(
-  url,
-  data,
-  cookie,
-  userId,
-  options = defaultOptions
-) {
+async function sendLocalApiData(url, data, cookie, userId, options = {}) {
   try {
+    const finalOptions = { ...defaultOptions, ...options }
     const response = await axios.post(
       url,
       data,
-      configureAxios(url, cookie, userId, options)
+      configureAxios(url, cookie, userId, optfinalOptionsions)
     )
 
     if (response.status !== 200) {
       throw new ThirdPartyApiError("Local API 送出失敗")
     }
-    return response.data
+
+    return finalOptions.returnFullResponse ? response : response.data
   } catch (err) {
     if (axios.isAxiosError(err)) {
       const serverResponse = err.response
@@ -101,23 +95,18 @@ async function sendLocalApiData(
 }
 
 //putLocalApiData
-async function modifiedLocalApiData(
-  url,
-  data,
-  cookie,
-  userId,
-  options = defaultOptions
-) {
+async function modifiedLocalApiData(url, data, cookie, userId, options = {}) {
   try {
+    const finalOptions = { ...defaultOptions, ...options }
     const response = await axios.put(
       url,
       data,
-      configureAxios(url, cookie, userId, options)
+      configureAxios(url, cookie, userId, finalOptions)
     )
     if (response.status !== 200) {
       throw new ThirdPartyApiError("Local API 修改失敗")
     }
-    return response.data
+    return finalOptions.returnFullResponse ? response : response.data
   } catch (err) {
     if (axios.isAxiosError(err)) {
       const serverResponse = err.response
@@ -130,21 +119,17 @@ async function modifiedLocalApiData(
   }
 }
 
-async function deleteLocalApiData(
-  url,
-  cookie,
-  userId,
-  options = defaultOptions
-) {
+async function deleteLocalApiData(url, cookie, userId, options = {}) {
   try {
+    const finalOptions = { ...defaultOptions, ...options }
     const response = await axios.delete(
       url,
-      configureAxios(url, cookie, userId, options)
+      configureAxios(url, cookie, userId, finalOptions)
     )
     if (response.status !== 200) {
       throw new ThirdPartyApiError("Local API 刪除失敗")
     }
-    return response.data
+    return finalOptions.returnFullResponse ? response : response.data
   } catch (err) {
     if (axios.isAxiosError(err)) {
       const serverResponse = err.response
