@@ -74,7 +74,7 @@ async function sendLocalApiData(url, data, cookie, userId, options = {}) {
     const response = await axios.post(
       url,
       data,
-      configureAxios(url, cookie, userId, optfinalOptionsions)
+      configureAxios(url, cookie, userId, finalOptions)
     )
 
     if (response.status !== 200) {

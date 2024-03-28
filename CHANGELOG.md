@@ -37,3 +37,9 @@
 ### Added
 
 - LocalApiService 增加 returnFullResponse 參數。
+
+## [1.4.1] - 2024-03-29
+
+### Fixed
+
+- sendLocalApiData 中 configureAxios 參數載入錯誤 bug
