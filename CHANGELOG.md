@@ -43,3 +43,11 @@
 ### Fixed
 
 - sendLocalApiData 中 configureAxios 參數載入錯誤 bug
+
+## [1.5.0] - 2024-04-10
+
+### Feature
+
+- validator
+  - 增加自訂錯誤訊息。
+  - 密碼特殊符號改成不強制輸入，且只允許特殊範圍。

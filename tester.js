@@ -1,21 +1,31 @@
 const { validateInput } = require("./src/validators")
 const { ValidationError } = require("./src/error")
 
-//test area
-;(function testArea() {
+function testArea() {
   try {
-    const testValue = "220220"
+    const testValue = "Aa123456789011121314"
     const validateData = validateInput([
       {
-        labelName: "郵遞區號",
-        inputName: "postalCode",
+        labelName: "密碼",
+        inputName: "password",
         inputValue: testValue,
-        validateWay: "isPostalCode",
+        validateWay: "password",
         isRequired: true,
+        minLength: 6,
+        maxLength: 16,
+        customMessages: {
+          "string.min": "密碼至少需要 {#limit} 個字元",
+        },
       },
     ])
     console.log(validateData)
   } catch (e) {
-    throw new ValidationError(e.message)
+    if (e instanceof ValidationError) {
+      console.error(e.message) // 或其他錯誤處理邏輯
+    } else {
+      throw e // 重新拋出非驗證相關的錯誤
+    }
   }
-})()
+}
+
+testArea()

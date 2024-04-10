@@ -482,15 +482,16 @@ const rules = {
     .label("密碼")
     .min(10)
     .max(16)
-    .pattern(/[!@#$%^&*(),.?":{}|<>]/)
-    .pattern(/[A-Z]/)
-    .pattern(/[a-z]/)
-    .invalid(new RegExp("^[a-zA-Z][1-2]\\d{8}$"))
+    .pattern(/^[A-Za-z0-9!@#$%^&*]*$/) // 特殊符號允許範圍
+    .pattern(/[A-Z]/) // 至少一個大寫字母
+    .pattern(/[a-z]/) // 至少一個小寫字母
+    .pattern(/\d/) // 至少一個數字
     .messages({
       ...baseErrorMessages,
-      "string.pattern.base": "{#label} 格式錯誤",
-      "string.min": "{#label} 長度必須為10~16字之間",
-      "string.max": "{#label} 長度必須為10~16字之間",
+      "string.pattern.base":
+        "{#label} 格式錯誤，僅允許字母、數字及特定特殊字符 (!@#$%^&*)",
+      "string.min": "{#label} 長度至少需要 {#limit} 個字元",
+      "string.max": "{#label} 長度不能超過 {#limit} 個字元",
     }),
   isString: Joi.string().label("文字").trim().messages(baseErrorMessages),
   userName: Joi.string()
@@ -580,6 +581,8 @@ const validateInput = (inputArray) => {
         enumValues, //enum限定有效值
         toLowerCase = false, //是否轉換為小寫
         toUpperCase = false,
+        patterns, // 一個或多個正則表達式 ex: ["[!@#$%^&*(),.?\":{}|<>]", "[A-Z]", "[a-z]", "\\d"]
+        customMessages, // 自定義錯誤訊息 ex: customMessages: {"string.min": "密碼至少需要 {#limit} 個字元"}
       } = item
 
       // 新增：如果需要轉換為小寫
@@ -615,6 +618,16 @@ const validateInput = (inputArray) => {
 
       if (enumValues && Array.isArray(enumValues)) {
         rule = rule.valid(...enumValues)
+      }
+
+      if (patterns && Array.isArray(patterns)) {
+        patterns.forEach((pattern) => {
+          rule = rule.pattern(new RegExp(pattern))
+        })
+      }
+
+      if (customMessages) {
+        rule = rule.messages(customMessages)
       }
 
       if (validateWay === "isArray" && item.itemValidateWay) {
