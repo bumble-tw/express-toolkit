@@ -7,7 +7,7 @@ async function sendMail(mailOptions, options = {}) {
   }
 
   const transporterOption = {
-    host: options.MAIL_HOST || "gmail",
+    service: options.MAIL_HOST || "gmail",
     port: options.MAIL_PORT || 465,
     secure: true,
     auth: {
