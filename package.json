@@ -1,6 +1,6 @@
 {
   "name": "@syscom-6r/syscom-6r-toolkit",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "凌群電腦後端程式工具包",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "dependencies": {
     "axios": "^1.5.1",
     "form-data": "^4.0.0",
+    "https-proxy-agent": "^7.0.4",
     "ioredis": "^5.3.2",
     "joi": "^17.11.0",
     "json-bigint": "^1.0.0",

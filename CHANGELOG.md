@@ -57,3 +57,9 @@
 ### Fixed
 
 - sendEmail Options 設定錯誤。 
+
+## [1.6.0] - 2024-04-16
+
+### Feature
+
+- 寄件系統新增 https proxy 設定條件
