@@ -576,6 +576,8 @@ const validateInput = (inputArray) => {
         isRequired = true, //是否必填
         minLength, //最小長度
         maxLength, //最大長度
+        minValue, //最小值
+        maxValue, //最大值
         minDate, // 最小日期
         maxDate, // 最大日期
         enumValues, //enum限定有效值
@@ -614,6 +616,14 @@ const validateInput = (inputArray) => {
 
       if (maxLength !== undefined) {
         rule = rule.max(maxLength)
+      }
+
+      if (minValue !== undefined) {
+        rule = rule.min(minValue) // 對數字設定最小值
+      }
+
+      if (maxValue !== undefined) {
+        rule = rule.max(maxValue) // 對數字設定最大值
       }
 
       if (enumValues && Array.isArray(enumValues)) {

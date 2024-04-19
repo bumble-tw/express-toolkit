@@ -32,16 +32,16 @@ function testPasswordValidate() {
 async function testSendEmail() {
   try {
     const mailOptions = {
-      from: "",
-      to: "",
+      from: "syscomappdev@gmail.com",
+      to: "nick1092387456@gmail.com",
       subject: `帳號信箱驗證連結`,
       html: `
       <h1>請點擊以下連結完成您的信箱驗證</h1>
     `,
     }
     const options = {
-      MAIL_AC: "",
-      MAIL_PW: "",
+      MAIL_AC: "syscomappdev@gmail.com",
+      MAIL_PW: "eqbyfocpbonxgdxj",
       PROXY_TYPE: "https",
       TRANSPORTS_PROXY: "http://localhost:3128",
     }
@@ -52,5 +52,30 @@ async function testSendEmail() {
   }
 }
 
+function valueTester() {
+  try {
+    const testValue = "3"
+    const validateData = validateInput([
+      {
+        labelName: "數字",
+        inputName: "number",
+        inputValue: testValue,
+        validateWay: "isNumber",
+        isRequired: true,
+        minValue: 6,
+        maxValue: 16,
+      },
+    ])
+    console.log(validateData)
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      console.error(err.message)
+    } else {
+      throw err
+    }
+  }
+}
+
+valueTester()
 // testPasswordValidate()
-testSendEmail()
+// testSendEmail()
