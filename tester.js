@@ -1,6 +1,7 @@
 const { validateInput } = require("./src/validators")
 const { ValidationError } = require("./src/error")
 const sendMail = require("./src/emailSender")
+require("dotenv").config()
 
 function testPasswordValidate() {
   try {
@@ -32,23 +33,24 @@ function testPasswordValidate() {
 async function testSendEmail() {
   try {
     const mailOptions = {
-      from: "syscomappdev@gmail.com",
-      to: "nick1092387456@gmail.com",
+      from: process.env.MAIL_AC,
+      to: process.env.MAIL_TO,
       subject: `帳號信箱驗證連結`,
       html: `
       <h1>請點擊以下連結完成您的信箱驗證</h1>
     `,
     }
     const options = {
-      MAIL_AC: "syscomappdev@gmail.com",
-      MAIL_PW: "eqbyfocpbonxgdxj",
-      PROXY_TYPE: "https",
-      TRANSPORTS_PROXY: "http://localhost:3128",
+      MAIL_AC: process.env.MAIL_AC,
+      MAIL_PW: process.env.MAIL_PW,
+      PROXY_TYPE: "http", //http, socks5
+      TRANSPORTS_PROXY: process.env.TRANSPORTS_PROXY,
+      DEBUG_MODE: true,
     }
 
     await sendMail(mailOptions, options)
   } catch (err) {
-    console.error(err)
+    console.error("郵件寄送失敗：", err)
   }
 }
 
@@ -76,6 +78,6 @@ function valueTester() {
   }
 }
 
-valueTester()
+// valueTester()
 // testPasswordValidate()
-// testSendEmail()
+testSendEmail()
