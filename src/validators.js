@@ -548,18 +548,10 @@ const rules = {
   isUUID: Joi.string()
     .guid(/*{ version: ["uuidv4"]}*/)
     .messages(baseErrorMessages),
-  isArray: Joi.array().when(Joi.ref("$isRequired"), {
-    is: true,
-    then: Joi.array()
-      .min(1)
-      .messages({
-        ...baseErrorMessages,
-        "array.min": "{#label}至少要有一個元素",
-      }),
-    otherwise: Joi.array()
-      .allow(null, "")
-      .optional()
-      .messages(baseErrorMessages),
+  isArray: Joi.array().messages({
+    "array.base": "{#label} 必須是一個陣列",
+    "array.min": "{#label} 至少要有一個元素",
+    "any.required": "{#label} 是必需的",
   }),
 }
 
@@ -597,8 +589,9 @@ const validateInput = (inputArray) => {
         processedInputValue = inputValue.toUpperCase()
       }
 
-      // 如果欄位值為undefined或null且不是必填的，則跳過
-      if (!inputValue && isRequired === false) continue
+      // 設定非必填時，如果值為 undefined 或 null，則跳過驗證
+      if ((inputValue === undefined || inputValue === null) && !isRequired)
+        continue
 
       let rule = rules[validateWay]
       if (!rule) {
