@@ -590,8 +590,14 @@ const validateInput = (inputArray) => {
       }
 
       // 設定非必填時，如果值為 undefined 或 null，則跳過驗證
-      if ((inputValue === undefined || inputValue === null) && !isRequired)
+      if (
+        (inputValue === undefined ||
+          inputValue === null ||
+          inputValue === "") &&
+        !isRequired
+      ) {
         continue
+      }
 
       let rule = rules[validateWay]
       if (!rule) {

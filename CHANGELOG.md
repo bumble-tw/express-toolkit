@@ -87,3 +87,9 @@
 ### Fixed
 
 - 修正validator監測不到輸入陣列為undefined的情形。
+
+## [1.6.5] - 2024-05-08
+
+### Fixed
+
+- 修正validator允許空值時，也要可以允許空字串。
