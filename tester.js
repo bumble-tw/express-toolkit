@@ -78,6 +78,49 @@ function valueTester() {
   }
 }
 
+async function redisTester() {
+  try {
+    const {
+      setRedisKey,
+      deleteRedisKey,
+      getRedisKey,
+    } = require("./src/redisSetter")
+    const cacheKey = "A"
+    const cacheData4 = [1, 2, 3, 4, 5]
+    const expired = 5 // seconds
+    const options = {
+      redisOn: process.env.REDIS_ON,
+      redisHost: "127.0.0.1",
+      redisPort: 6379,
+      redisPassword: "",
+      isDev: false,
+    }
+
+    // 刪除測試
+    await setRedisKey(cacheKey, cacheData4, expired, options)
+    const beforeDelGetResult = await getRedisKey(cacheKey, options)
+    console.log("beforeDelGetResult: ", beforeDelGetResult)
+    await deleteRedisKey(cacheKey, options)
+    const afterDelGetResult = await getRedisKey(cacheKey, options)
+    console.log("afterDelGetResult: ", afterDelGetResult)
+
+    // timeout 測試
+    await setRedisKey(cacheKey, cacheData4, expired, options)
+    const beforeTimeoutGetResult = await getRedisKey(cacheKey, options)
+    console.log("beforeTimeoutGetResult: ", beforeTimeoutGetResult)
+    console.log("Executing next steps...")
+    setTimeout(async () => {
+      const afterTimeoutGetResult = await getRedisKey(cacheKey, options)
+      console.log("afterTimeoutGetResult: ", afterTimeoutGetResult)
+
+      console.log("End of redisTester")
+    }, 6000)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+redisTester()
 // valueTester()
 // testPasswordValidate()
-testSendEmail()
+// testSendEmail()
