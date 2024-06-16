@@ -75,8 +75,8 @@ module.exports = {
         dataToStore = cacheData
       }
 
-      if (!dataToStore) {
-        throw new Error("Redis set data cannot be null or empty")
+      if (dataToStore === null || dataToStore === undefined) {
+        throw new Error("Redis set data cannot be null or undefined")
       }
 
       // 嘗試設定 Redis 鍵值
