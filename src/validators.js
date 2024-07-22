@@ -449,6 +449,15 @@ const baseErrorMessages = {
 }
 
 const rules = {
+  isUrl: Joi.string()
+    .label("URL")
+    .uri({
+      scheme: ["http", "https"],
+    })
+    .messages({
+      ...baseErrorMessages,
+      "string.uri": "{#label} 必須是一個有效的 URL",
+    }),
   isPostalCode: Joi.string()
     .label("郵遞區號")
     .trim()
