@@ -1,6 +1,6 @@
 {
   "name": "@syscom-6r/syscom-6r-toolkit",
-  "version": "1.6.8",
+  "version": "1.7.0",
   "description": "凌群電腦後端程式工具包",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,8 @@
     "joi": "^17.11.0",
     "json-bigint": "^1.0.0",
     "node-fetch": "^2.6.7",
-    "nodemailer": "^6.9.4",
+    "nodemailer": "^4.6.7",
+    "nodemailer-smime": "^1.1.0",
     "socks": "^2.7.1",
     "socks-proxy-agent": "^7.0.0"
   }
