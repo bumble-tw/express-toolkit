@@ -122,3 +122,7 @@
   - SSL
   - STARTTLS
   - HTTP/HTTPS Agent
+
+### [1.7.2] - 2024-08-02
+
+- 信箱修正當 TRANSPORTS_PROXY 為空字串時會出現錯誤的問題

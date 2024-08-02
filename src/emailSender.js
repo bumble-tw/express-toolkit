@@ -34,7 +34,7 @@ async function sendMail(mailOptions, options = {}) {
   const nodemailer = useSMIME ? require("nodemailer4") : require("nodemailer")
   const smime = useSMIME ? require("nodemailer-smime") : null
 
-  if (options.TRANSPORTS_PROXY) {
+  if (options.TRANSPORTS_PROXY && options.TRANSPORTS_PROXY.trim() !== "") {
     const proxyType = options.TRANSPORTS_PROXY.startsWith("socks5://")
       ? "socks5"
       : "http"
