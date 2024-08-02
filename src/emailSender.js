@@ -34,21 +34,6 @@ async function sendMail(mailOptions, options = {}) {
   const nodemailer = useSMIME ? require("nodemailer4") : require("nodemailer")
   const smime = useSMIME ? require("nodemailer-smime") : null
 
-  if (options.TRANSPORTS_PROXY && options.TRANSPORTS_PROXY.trim() !== "") {
-    const proxyType = options.TRANSPORTS_PROXY.startsWith("socks5://")
-      ? "socks5"
-      : "http"
-    if (proxyType === "socks5") {
-      transporter.set("proxy_socks_module", require("socks"))
-    } else {
-      const { HttpProxyAgent, HttpsProxyAgent } = require("http-proxy-agent")
-      const agent = options.TRANSPORTS_PROXY.startsWith("https")
-        ? new HttpsProxyAgent(options.TRANSPORTS_PROXY)
-        : new HttpProxyAgent(options.TRANSPORTS_PROXY)
-      transporterOption.proxy = agent
-    }
-  }
-
   if (useDKIM) {
     try {
       if (!fs.existsSync(dirPath)) {
