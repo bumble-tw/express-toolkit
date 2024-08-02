@@ -23,6 +23,7 @@ async function sendMail(mailOptions, options = {}) {
       user: options.MAIL_AC,
       pass: options.MAIL_PW,
     },
+    proxy: options.TRANSPORTS_PROXY,
     connectionTimeout: options.DEBUG_MODE ? 10000 : 120000,
     greetingTimeout: options.DEBUG_MODE ? 5000 : 30000,
     socketTimeout: options.DEBUG_MODE ? 60000 : 600000,
