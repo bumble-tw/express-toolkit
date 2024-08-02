@@ -35,17 +35,24 @@ async function testSendEmail() {
     const mailOptions = {
       from: process.env.MAIL_AC,
       to: process.env.MAIL_TO,
-      subject: `帳號信箱驗證連結`,
-      html: `
-      <h1>請點擊以下連結完成您的信箱驗證</h1>
-    `,
+      subject: "測試郵件",
+      text: "這是一封測試郵件。",
+      html: "<p>這是一封測試郵件。</p>",
     }
+
     const options = {
-      MAIL_AC: process.env.MAIL_AC,
-      MAIL_PW: process.env.MAIL_PW,
-      PROXY_TYPE: "http", //http, socks5
-      TRANSPORTS_PROXY: process.env.TRANSPORTS_PROXY,
-      DEBUG_MODE: true,
+      MAIL_AC: process.env.MAIL_AC, // 你的郵件帳號
+      MAIL_PW: process.env.MAIL_PW, // 你的郵件密碼
+      // TRANSPORTS_PROXY: "",
+      EMAIL_HOST: "smtp.gmail.com",
+      // EMAIL_PORT: 587,
+      USE_SMIME: "false", // 使用S/MIME
+      USE_ENCRYPTION: "false", // 使用S/MIME加密
+      USE_DKIM: "false", // 使用DKIM
+      DKIM_KEY_SELECTOR: "default",
+      DKIM_DOMAIN_NAME: "example.com",
+      USE_STARTTLS: "false", // 不使用STARTTLS
+      // DEBUG_MODE: true,
     }
 
     await sendMail(mailOptions, options)
@@ -120,7 +127,7 @@ async function redisTester() {
   }
 }
 
-redisTester()
+// redisTester()
 // valueTester()
 // testPasswordValidate()
 // testSendEmail()
