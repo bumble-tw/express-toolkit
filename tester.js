@@ -43,16 +43,17 @@ async function testSendEmail() {
     const options = {
       MAIL_AC: process.env.MAIL_AC, // 你的郵件帳號
       MAIL_PW: process.env.MAIL_PW, // 你的郵件密碼
-      // TRANSPORTS_PROXY: "",
       EMAIL_HOST: "smtp.gmail.com",
       // EMAIL_PORT: 587,
-      USE_SMIME: "false", // 使用S/MIME
-      USE_ENCRYPTION: "false", // 使用S/MIME加密
-      USE_DKIM: "false", // 使用DKIM
-      DKIM_KEY_SELECTOR: "default",
-      DKIM_DOMAIN_NAME: "example.com",
-      USE_STARTTLS: "false", // 不使用STARTTLS
-      // DEBUG_MODE: true,
+      // USE_STARTTLS: "false", // 不使用STARTTLS
+      USE_SSL: "true", // 使用SSL
+      // USE_SMIME: "false", // 使用S/MIME
+      // USE_ENCRYPTION: "false", // 使用S/MIME加密
+      // TRANSPORTS_PROXY: "",
+      // USE_DKIM: "false", // 使用DKIM
+      // DKIM_KEY_SELECTOR: "default",
+      // DKIM_DOMAIN_NAME: "example.com",
+      // DEBUG_MODE: "false",
     }
 
     await sendMail(mailOptions, options)
@@ -130,4 +131,4 @@ async function redisTester() {
 // redisTester()
 // valueTester()
 // testPasswordValidate()
-// testSendEmail()
+testSendEmail()

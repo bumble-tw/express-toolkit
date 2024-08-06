@@ -13,7 +13,13 @@ async function sendMail(mailOptions, options = {}) {
   const useSMIME = options.USE_SMIME === "true" // 預設為 false
   const useEncryption = options.USE_ENCRYPTION === "true" // 控制SMIME是否要加密
   const useDKIM = options.USE_DKIM === "true" // 控制是否使用DKIM
-  const dirPath = path.join(__dirname, "..", "private")
+  const dirPath = path.join(process.cwd(), "private")
+
+  if (useStartTLS && useSSL) {
+    throw new Error(
+      "不能同時設置 USE_STARTTLS 或 USE_SSL 為 true。請提供一個合理的配置。"
+    )
+  }
 
   const transporterOption = {
     host: options.EMAIL_HOST || "smtp.gmail.com", // 預設使用Gmail
@@ -110,7 +116,7 @@ async function sendMail(mailOptions, options = {}) {
 
       transporter.use(
         "stream",
-        smime.sign({
+        smime({
           cert: fs.readFileSync(certPath, "utf8"),
           key: fs.readFileSync(keyPath, "utf8"),
           encryptionCert: useEncryption
