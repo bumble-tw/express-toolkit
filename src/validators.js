@@ -491,14 +491,11 @@ const rules = {
     .label("密碼")
     .min(10)
     .max(16)
-    .pattern(/^[A-Za-z0-9!@#$%^&*]*$/) // 特殊符號允許範圍
-    .pattern(/[A-Z]/) // 至少一個大寫字母
-    .pattern(/[a-z]/) // 至少一個小寫字母
-    .pattern(/\d/) // 至少一個數字
+    .pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z0-9!@#$%^&*]*$/) // 合併規則為一個正則表達式
     .messages({
       ...baseErrorMessages,
       "string.pattern.base":
-        "{#label} 格式錯誤，僅允許字母、數字及特定特殊字符 (!@#$%^&*)",
+        "{#label} 格式錯誤，僅允許字母、數字及特定特殊字符 (!@#$%^&*)，且需包含至少一個大寫字母、一個小寫字母及一個數字",
       "string.min": "{#label} 長度至少需要 {#limit} 個字元",
       "string.max": "{#label} 長度不能超過 {#limit} 個字元",
     }),
