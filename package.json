@@ -1,5 +1,5 @@
 {
-  "name": "@bumble-tw/syscom-6r-toolkit",
+  "name": "@bumble-tw/express-toolkit",
   "version": "1.0.0",
   "description": "後端程式工具包",
   "main": "index.js",
@@ -10,7 +10,7 @@
   "author": "Bumble",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bumble-tw/expressToolkit"
+    "url": "https://github.com/bumble-tw/express-toolkit"
   },
   "publishConfig": {
     "access": "restricted"
