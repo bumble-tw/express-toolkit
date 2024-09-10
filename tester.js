@@ -89,6 +89,7 @@ function valueTester() {
 async function redisTester() {
   try {
     const {
+      initializeRedisClient,
       setRedisKey,
       deleteRedisKey,
       getRedisKey,
@@ -104,21 +105,24 @@ async function redisTester() {
       isDev: false,
     }
 
+    // 初始化 Redis 客戶端
+    initializeRedisClient(options)
+
     // 刪除測試
-    await setRedisKey(cacheKey, cacheData4, expired, options)
-    const beforeDelGetResult = await getRedisKey(cacheKey, options)
+    await setRedisKey(cacheKey, cacheData4, expired)
+    const beforeDelGetResult = await getRedisKey(cacheKey)
     console.log("beforeDelGetResult: ", beforeDelGetResult)
-    await deleteRedisKey(cacheKey, options)
-    const afterDelGetResult = await getRedisKey(cacheKey, options)
+    await deleteRedisKey(cacheKey)
+    const afterDelGetResult = await getRedisKey(cacheKey)
     console.log("afterDelGetResult: ", afterDelGetResult)
 
     // timeout 測試
-    await setRedisKey(cacheKey, cacheData4, expired, options)
-    const beforeTimeoutGetResult = await getRedisKey(cacheKey, options)
+    await setRedisKey(cacheKey, cacheData4, expired)
+    const beforeTimeoutGetResult = await getRedisKey(cacheKey)
     console.log("beforeTimeoutGetResult: ", beforeTimeoutGetResult)
     console.log("Executing next steps...")
     setTimeout(async () => {
-      const afterTimeoutGetResult = await getRedisKey(cacheKey, options)
+      const afterTimeoutGetResult = await getRedisKey(cacheKey)
       console.log("afterTimeoutGetResult: ", afterTimeoutGetResult)
 
       console.log("End of redisTester")
@@ -128,7 +132,7 @@ async function redisTester() {
   }
 }
 
-// redisTester()
+redisTester()
 // valueTester()
 // testPasswordValidate()
-testSendEmail()
+// testSendEmail()

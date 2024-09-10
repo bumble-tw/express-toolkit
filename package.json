@@ -1,17 +1,16 @@
 {
   "name": "@bumble-tw/syscom-6r-toolkit",
-  "version": "1.8.2",
-  "description": "凌群電腦後端程式工具包",
+  "version": "1.0.0",
+  "description": "後端程式工具包",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "publish": "npm publish --access restricted"
   },
-  "author": "Bumble, Chuang Nick",
+  "author": "Bumble",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.turl.kaehsu.io/Bumble/syscom-6r-toolkit.git",
-    "url2": "https://github.com/bumble-tw/syscom-6r-toolkit/pkgs/npm/syscom-6r-toolkit"
+    "url": "https://github.com/bumble-tw/syscom-6r-toolkit/pkgs/npm/syscom-6r-toolkit"
   },
   "publishConfig": {
     "access": "restricted"
