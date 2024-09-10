@@ -10,7 +10,7 @@
   "author": "Bumble",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bumble-tw/syscom-6r-toolkit/pkgs/npm/syscom-6r-toolkit"
+    "url": "https://github.com/bumble-tw/expressToolkit"
   },
   "publishConfig": {
     "access": "restricted"
