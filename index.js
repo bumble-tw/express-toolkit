@@ -4,7 +4,9 @@ const {
   ValidationError,
   DatabaseConflictError,
   PermissionError,
-  ThirdPartyApiError,
+  ThirdPartyPackageError,
+  ThirdPartyServiceError,
+  ApplicationError,
 } = require("./src/error")
 const {
   fetchLocalApiData,
@@ -69,9 +71,9 @@ module.exports = {
     ValidationError,
     DatabaseConflictError,
     PermissionError,
-    ThirdPartyApiError,
+    ThirdPartyPackageError,
+    ThirdPartyServiceError,
+    ApplicationError,
   },
   validate: validateInput,
 }
-
-

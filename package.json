@@ -1,6 +1,6 @@
 {
   "name": "@bumble-tw/express-toolkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "後端程式工具包",
   "main": "index.js",
   "scripts": {
